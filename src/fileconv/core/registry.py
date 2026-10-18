@@ -22,6 +22,7 @@ class Converter:
     fn: ConversionFunction
     tool: str | None = None
     label: str | None = None
+    output_is_directory: bool = False
 
     def available(self) -> bool:
         """Return whether any required external executable is installed."""
@@ -36,6 +37,7 @@ def register(
     dst: str,
     tool: str | None = None,
     label: str | None = None,
+    output_is_directory: bool = False,
 ) -> Callable[[ConversionFunction], ConversionFunction]:
     """Register a converter function and return it unchanged."""
 
@@ -46,6 +48,7 @@ def register(
             fn=fn,
             tool=tool,
             label=label,
+            output_is_directory=output_is_directory,
         )
         if any(
             existing.src == converter.src and existing.dst == converter.dst

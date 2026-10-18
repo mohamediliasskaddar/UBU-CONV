@@ -1,8 +1,8 @@
 # fileconv
 
 `fileconv` is a local-only file conversion prototype for Ubuntu 24.04+ and
-Wayland. It is being built in small milestones; this first milestone provides
-the conversion engine and CLI for image-to-image conversions.
+Wayland. The current milestone provides image, PDF, office-document, and text
+conversions through a command-line interface.
 
 ## Install
 
@@ -21,8 +21,8 @@ python -m pip install -e '.[heic]'
 ## Use
 
 ```sh
-fileconv targets photo.jpg
-fileconv convert photo.jpg png
+fileconv targets image.jpg
+fileconv convert image.jpg png
 fileconv doctor
 ```
 
@@ -31,8 +31,28 @@ already exists, `fileconv` chooses `name (1).ext`, then the next available
 number, without replacing existing files.
 
 The current milestone supports conversions among JPG, PNG, WEBP, BMP, and TIFF.
-HEIC is included only when `pillow-heif` is installed. PDF, office-document,
-text, and graphical-menu support are planned for later milestones.
+HEIC is included only when `pillow-heif` is installed. It also supports image
+to PDF; PDF to PNG/JPG, TXT, or Markdown; DOCX/PPTX/XLSX/ODT to PDF; DOCX to
+Markdown/HTML/TXT; Markdown to DOCX/HTML; and merging multiple PDFs.
+Markdown-to-PDF is offered only when Pandoc and a supported PDF engine are
+installed. The graphical menu remains planned for a later milestone.
+
+## Step 2 testing
+
+```sh
+mkdir -p converted
+fileconv convert tests/fixtures/sample.docx pdf --out-dir converted
+fileconv convert tests/fixtures/sample.pdf md --out-dir converted
+fileconv convert tests/fixtures/sample.png pdf --out-dir converted
+fileconv convert tests/fixtures/sample.pdf png --out-dir converted
+fileconv merge tests/fixtures/sample.pdf tests/fixtures/sample.pdf --out-dir converted
+fileconv doctor
+```
+
+Install LibreOffice to enable office-document conversions, and install Pandoc
+to enable DOCX/Markdown conversions. `doctor` lists conversions by source
+format and identifies missing external tools. Tests for conversions requiring
+those tools are skipped when the tools are unavailable.
 
 ## Known limits
 
@@ -50,5 +70,5 @@ text, and graphical-menu support are planned for later milestones.
 
 ```sh
 pytest
-ruff check .
+ruff check src tests
 ```
