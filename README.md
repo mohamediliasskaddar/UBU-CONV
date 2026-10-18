@@ -72,3 +72,16 @@ those tools are skipped when the tools are unavailable.
 pytest
 ruff check src tests
 ```
+
+## Radial menu manual test
+
+1. Install the project with `python -m pip install -e .` and launch
+   `fileconv-menu`. The fullscreen overlay should show “Drop a file”; press
+   Esc to close it.
+2. Launch `fileconv-menu /path/to/image.png`. Click a format slice to convert,
+   or press Esc to close.
+3. Launch `fileconv-menu`, then drag a supported file from Nautilus onto the
+   overlay. Move over a slice and drop to start conversion. The output should
+   appear beside the source and a desktop notification should appear.
+4. Drag two or more PDFs onto the overlay and choose **Merge**. Press Esc to
+   dismiss errors or close the menu.
