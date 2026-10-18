@@ -6,8 +6,10 @@ build-backend = "setuptools.build_meta"
 name = "fileconv"
 version = "0.1.0"
 description = "A local file converter prototype for Ubuntu"
-readme = "README_step1.md"
+readme = "README.md"
 requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Mohamed iliass KADDAR", email = "mohamediliassk@gmail.com" }]
 dependencies = [
     "Pillow>=10.0",
     "typer>=0.12",
